@@ -70,7 +70,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if (GPIO_Pin == S1_Pin) {
 		//s1: letf directional
 		HAL_UART_Transmit(&huart2, "S1\n", 3, 10);
-		if (HAL_GetTick() < (left_last_press_tick + 300)) { // if last press was in the last 300ms
+		if ((HAL_GetTick() < (left_last_press_tick + 300))&&(HAL_GetTick() > left_last_press_tick + 150)) { // if last press was in the last 300ms
 			left_toggles = 0xFFFFFF; // a long time toggling (infinite)
 		} else {
 			left_toggles = 6;
@@ -83,7 +83,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if (GPIO_Pin == S3_Pin) {
 		//s3: righ directional
 		HAL_UART_Transmit(&huart2, "S3\n", 3, 10);
-		if(HAL_GetTick() < righ_last_press_tick + 300 ){
+		if((HAL_GetTick() < righ_last_press_tick + 300 )&&(HAL_GetTick() > righ_last_press_tick + 150)){
 			righ_toggles = 0xFFFFFF; // a long time toggling (infinite)
 		}
 		else{
@@ -98,7 +98,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if (GPIO_Pin == S2_Pin) {
 			//s2: park directional
 			HAL_UART_Transmit(&huart2, "S2\r\n", 4, 10);
-			if(HAL_GetTick() < park_last_press_tick + 300 ){
+			if((HAL_GetTick() < park_last_press_tick + 300 )&&(HAL_GetTick() > park_last_press_tick + 150)){
 				park_toggles = 0xFFFFFF; // a long time toggling (infinite)
 			}
 			else{
